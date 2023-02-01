@@ -36,14 +36,14 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
 
   it('runs eth.trx', async function () {
     // Mint some oETH by supplying ETH to the Onyx Protocol
-    const sEthMainnetAddress = '0xbEe9Cf658702527b0AcB2719c1FAA29EdC006a92';
+    const oEthMainnetAddress = '0xbEe9Cf658702527b0AcB2719c1FAA29EdC006a92';
 
     let txReceipt;
 
     try {
 
       const trx = await eth.trx(
-        sEthMainnetAddress,
+        oEthMainnetAddress,
         'function mint() payable',
         [],
         {
