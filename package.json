@@ -1,0 +1,72 @@
+{
+  "name": "@onyx-finance/onyx-js",
+  "version": "1.0.0",
+  "author": "Onyx Labs, Inc.",
+  "description": "A JavaScript SDK for Ethereum and the Onyx Protocol.",
+  "license": "BSD-3-Clause",
+  "main": "dist/nodejs/index.js",
+  "files": [
+    "/dist/**/*.d.ts",
+    "/dist/**/*.js",
+    "/dist/**/*.js.map"
+  ],
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ]
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint ./src/*.ts",
+    "build": "npm run lint && ./node_modules/.bin/tsc && npm run rollup",
+    "docs": "node ./scripts/onyx-docs.js",
+    "prepare": "npm run build",
+    "publish_patch": "npm version patch && npm publish --access public",
+    "publish_minor": "npm version minor && npm publish --access public",
+    "publish_major": "npm version major && npm publish --access public",
+    "rollup": "./node_modules/.bin/rollup -c rollup.config.ts",
+    "test_log_coverage": "./node_modules/.bin/nyc ./node_modules/.bin/mocha -r ts-node/register ./test/index.js  --timeout 60000",
+    "test": "./node_modules/.bin/nyc --reporter=lcov ./node_modules/.bin/mocha -r ts-node/register ./test/index.js  --timeout 60000",
+    "coverage": "codecov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onyx-protocol/onyx-js.git"
+  },
+  "keywords": [
+    "onyx",
+    "onyx-js",
+    "onyx.js",
+    "onyx protocol",
+    "onyx finance",
+    "decentralized finance",
+    "defi",
+    "ethereum"
+  ],
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@types/mocha": "^8.2.0",
+    "@types/node": "^14.0.11",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
+    "codecov": "^3.8.1",
+    "docblock-parser": "^1.0.0",
+    "eslint": "^7.9.0",
+    "ethereum-waffle": "^3.4.0",
+    "hardhat": "^2.4.1",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
+    "rollup": "^2.15.0",
+    "rollup-plugin-babel-minify": "^10.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^3.9.7"
+  },
+  "peerDependencies": {
+    "ethers": "5.x"
+  }
+}
