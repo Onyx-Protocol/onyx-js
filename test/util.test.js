@@ -1,11 +1,13 @@
 const assert = require('assert');
 const util = require('../src/util.ts');
 
+const networkName = process.env.NETWORK;
+
 module.exports = function suite() {
 
   it('runs util.getAddress', async function () {
-    const oEthAddress = '0xbEe9Cf658702527b0AcB2719c1FAA29EdC006a92';
-    const result = util.getAddress('oETH');
+    const oEthAddress = '0x2A5eaf0CaF7a8D9104338CD06687402e181603e4';
+    const result = util.getAddress('oETH', networkName);
 
     const expectedAddress = oEthAddress.toLowerCase();
 
