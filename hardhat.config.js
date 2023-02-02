@@ -18,7 +18,7 @@ module.exports = {
         // blockNumber: 8250500,
       },
       gasPrice: 0,
-      loggingEnabled: true,
+      loggingEnabled: false,
     },
   },
   mocha: {

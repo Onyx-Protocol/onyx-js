@@ -55,15 +55,15 @@ describe('Onyx.js', function () {
     await jsonRpcServer.close();
   });
 
-  // describe('./src/xcn.ts', xcn.bind(this, acc));
-  // describe('./src/comptroller.ts', comptroller.bind(this, acc));
-  // describe('./src/oToken.ts', oToken.bind(this, acc));
-  // describe('./src/EIP712.ts', EIP712.bind(this, acc));
-  // describe('./src/eth.ts', eth.bind(this, acc));
-  // describe('./src/gov.ts', gov.bind(this, acc));
-  // describe('./src/priceFeed.ts', priceFeed.bind(this, acc));
+  describe('./src/xcn.ts', xcn.bind(this, acc));
+  describe('./src/comptroller.ts', comptroller.bind(this, acc));
+  describe('./src/oToken.ts', oToken.bind(this, acc));
+  describe('./src/EIP712.ts', EIP712.bind(this, acc));
+  describe('./src/eth.ts', eth.bind(this, acc));
+  describe('./src/gov.ts', gov.bind(this, acc));
+  describe('./src/priceFeed.ts', priceFeed.bind(this, acc));
   describe('./src/util.ts', util.bind(this, acc));
-  // describe('initialize', initialize.bind(this, acc));
+  describe('initialize', initialize.bind(this, acc));
 
 });
 

@@ -5,6 +5,7 @@ const providerUrl = 'http://localhost:8545';
 
 const unlockedAddress = '0xa0df350d2637096571F7A701CBc1C5fdE30dF76A';
 const unlockedPk = '0xb8c1b5c1d81f9475fdf2e334517d29f733bdfa40682207571b12fc1142cbf329';
+const networkName = process.env.NETWORK;
 
 module.exports = function suite([ publicKeys, privateKeys ]) {
 
@@ -34,7 +35,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
       votingIsClosed = JSON.stringify(err).includes('GovernorAlpha::castVoteInternal: voting is closed');
     }
 
-    const addressExpected = Onyx.util.getAddress('GovernorAlpha');
+    const addressExpected = Onyx.util.getAddress('GovernorAlpha', networkName);
     const methodExpected = 'castVote';
     const paramsExpected = [ 43, 1 ];
 
@@ -106,7 +107,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
       votingIsClosed = JSON.stringify(err).includes('GovernorAlpha::castVoteInternal: voting is closed');
     }
 
-    const addressExpected = Onyx.util.getAddress('GovernorAlpha');
+    const addressExpected = Onyx.util.getAddress('GovernorAlpha', networkName);
     const methodExpected = 'castVoteBySig';
     const paramsExpected = [
       43,
@@ -208,9 +209,9 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
     );
 
     const expectedSignature = {
-      r: '0x1a6e2fb84157328c3e37ac1c536ddc807ed075ff10ea9bfc256996068c270140',
-      s: '0x452a67a58a1f56a70e5ba5ccd662038aab4f377aaa19f3f3b4084351673d7ab7',
-      v: '0x1b'
+      r: '0xe3a53adda4c5283979f669cf8f1f39a129346a85738cb3678cf8d6e48f40acbe',
+      s: '0x35c56a42ec081f7f7527234540d507df0995500effa3bdcfea7e028b70078362',
+      v: '0x1c'
     };
 
     assert.equal(voteSignature.r, expectedSignature.r);
@@ -242,7 +243,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
       votingIsClosed = JSON.stringify(err).includes('GovernorAlpha::castVoteInternal: voting is closed');
     }
 
-    const addressExpected = Onyx.util.getAddress('GovernorAlpha');
+    const addressExpected = Onyx.util.getAddress('GovernorAlpha', networkName);
     const methodExpected = 'castVoteWithReason';
     const paramsExpected = [ 43, 1, 'Reason here' ];
 
