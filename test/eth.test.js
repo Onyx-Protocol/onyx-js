@@ -1,10 +1,14 @@
 const assert = require('assert');
 const ethers = require('ethers');
+const Onyx = require('../src/index.ts');
 const eth = require('../src/eth.ts');
 const providerUrl = 'http://localhost:8545';
 
 // Mocked browser `window.ethereum` as unlocked account '0xa0df35...'
 const _window = { ethereum: require('./window.ethereum.json') };
+
+const chainId = parseInt(process.env.CHAIN_ID, 10);
+const networkName = process.env.NETWORK;
 
 module.exports = function suite([ publicKeys, privateKeys ]) {
 
@@ -21,7 +25,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
   });
 
   it('runs eth.read', async function () {
-    const oUsdcMainnetAddress = '0x3774E825d567125988Fb293e926064B6FAa71DAB';
+    const oUsdcMainnetAddress = Onyx.util.getAddress(Onyx.oUSDC, networkName);
     const result = await eth.read(
       oUsdcMainnetAddress,
       'function decimals() returns (uint8)',
@@ -36,7 +40,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
 
   it('runs eth.trx', async function () {
     // Mint some oETH by supplying ETH to the Onyx Protocol
-    const oEthMainnetAddress = '0xbEe9Cf658702527b0AcB2719c1FAA29EdC006a92';
+    const oEthMainnetAddress = Onyx.util.getAddress(Onyx.oETH, networkName);
 
     let txReceipt;
 
@@ -112,7 +116,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
     });
 
     const expected = 'Wallet';
-    const expectedChainId = 3;
+    const expectedChainId = chainId;
     assert.equal(provider.provider._network.chainId, expectedChainId);
     assert.equal(provider.constructor.name, expected);
   });
@@ -124,7 +128,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
     });
 
     const expected = 'Wallet';
-    const expectedChainId = 3;
+    const expectedChainId = chainId;
     assert.equal(provider.provider._network.chainId, expectedChainId);
     assert.equal(provider.constructor.name, expected);
   });
@@ -171,7 +175,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
     const provider = await eth._createProvider({ provider: providerUrl });
     const network = await eth.getProviderNetwork(provider);
 
-    const expected = { id: 1, name: 'mainnet' };
+    const expected = { id: chainId, name: networkName };
     assert.equal(network.id, expected.id);
     assert.equal(network.name, expected.name);
   });
