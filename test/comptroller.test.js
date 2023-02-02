@@ -64,7 +64,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
       privateKey: acc1.privateKey
     });
 
-    const errorMessage = 'Onyx [enterMarkets] | Provided market `sbadotokenname` is not a recognized oToken.';
+    const errorMessage = 'Onyx [enterMarkets] | Provided market `obadotokenname` is not a recognized oToken.';
     try {
       const trx = await onyx.enterMarkets(['USDC', 'badotokenname']);
     } catch (e) {
@@ -111,7 +111,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
       privateKey: acc1.privateKey
     });
 
-    const errorMessage = 'Onyx [exitMarket] | Provided market `sbadotokenname` is not a recognized oToken.';
+    const errorMessage = 'Onyx [exitMarket] | Provided market `obadotokenname` is not a recognized oToken.';
     try {
       const trx = await onyx.exitMarket('badotokenname');
     } catch (e) {
