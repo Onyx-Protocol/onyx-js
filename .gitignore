@@ -5,3 +5,4 @@ scripts/out.md
 .nyc_output/
 coverage/
 cache/
+.env

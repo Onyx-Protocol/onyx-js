@@ -65,7 +65,7 @@ const Onyx = function(
     ...oToken,
     ...priceFeed,
     ...gov,
-    claimOnyx: xcn.claimOnyx,
+    claimXcn: xcn.claimXcn,
     delegate: xcn.delegate,
     delegateBySig: xcn.delegateBySig,
     createDelegateSignature: xcn.createDelegateSignature,
@@ -87,8 +87,8 @@ Onyx.util = util;
 Onyx._ethers = ethers;
 Onyx.decimals = decimals;
 Onyx.xcn = {
-  getOnyxBalance: xcn.getOnyxBalance,
-  getOnyxAccrued: xcn.getOnyxAccrued,
+  getXcnBalance: xcn.getXcnBalance,
+  getXcnAccrued: xcn.getXcnAccrued,
 };
 Object.assign(Onyx, constants);
 

@@ -6,6 +6,7 @@ const providerUrl = 'http://localhost:8545';
 
 const unlockedAddress = '0xa0df350d2637096571F7A701CBc1C5fdE30dF76A';
 const unlockedPk = '0xb8c1b5c1d81f9475fdf2e334517d29f733bdfa40682207571b12fc1142cbf329';
+const networkName = process.env.NETWORK;
 
 function getNonce(address, xcnAddress, _providerUrl) {
   return new Promise((resolve, reject) => {
@@ -22,62 +23,62 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
 
   const acc1 = { address: publicKeys[0], privateKey: privateKeys[0] };
 
-  it('runs xcn.getOnyxBalance', async function () {
-    const bal = await xcn.getOnyxBalance(acc1.address, providerUrl);
+  it('runs xcn.getXcnBalance', async function () {
+    const bal = await xcn.getXcnBalance(acc1.address, providerUrl);
 
     const expected = 0;
     assert.equal(bal, expected);
   });
 
-  it('fails xcn.getOnyxBalance address string', async function () {
-    const errorMessage = 'Onyx [getOnyxBalance] | Argument `_address` must be a string.';
+  it('fails xcn.getXcnBalance address string', async function () {
+    const errorMessage = 'Onyx [getXcnBalance] | Argument `_address` must be a string.';
 
     try {
-      await xcn.getOnyxBalance(1, providerUrl);
+      await xcn.getXcnBalance(1, providerUrl);
     } catch (e) {
       assert.equal(e.message, errorMessage);
     }
   });
 
-  it('fails xcn.getOnyxBalance address invalid', async function () {
-    const errorMessage = 'Onyx [getOnyxBalance] | Argument `_address` must be a valid Ethereum address.';
+  it('fails xcn.getXcnBalance address invalid', async function () {
+    const errorMessage = 'Onyx [getXcnBalance] | Argument `_address` must be a valid Ethereum address.';
 
     try {
-      await xcn.getOnyxBalance('bad_ethereum_address', providerUrl);
+      await xcn.getXcnBalance('bad_ethereum_address', providerUrl);
     } catch (e) {
       assert.equal(e.message, errorMessage);
     }
   });
 
-  it('runs xcn.getOnyxAccrued', async function () {
-    const accrued = await xcn.getOnyxAccrued(acc1.address, providerUrl);
+  it('runs xcn.getXcnAccrued', async function () {
+    const accrued = await xcn.getXcnAccrued(acc1.address, providerUrl);
 
     const expected = 0;
     assert.equal(accrued, expected);
   });
 
-  it('fails xcn.getOnyxAccrued address string', async function () {
-    const errorMessage = 'Onyx [getOnyxAccrued] | Argument `_address` must be a string.';
+  it('fails xcn.getXcnAccrued address string', async function () {
+    const errorMessage = 'Onyx [getXcnAccrued] | Argument `_address` must be a string.';
 
     try {
-      await xcn.getOnyxAccrued(1, providerUrl);
+      await xcn.getXcnAccrued(1, providerUrl);
     } catch (e) {
       assert.equal(e.message, errorMessage);
     }
   });
 
-  it('fails xcn.getOnyxAccrued address invalid', async function () {
-    const errorMessage = 'Onyx [getOnyxAccrued] | Argument `_address` must be a valid Ethereum address.';
+  it('fails xcn.getXcnAccrued address invalid', async function () {
+    const errorMessage = 'Onyx [getXcnAccrued] | Argument `_address` must be a valid Ethereum address.';
 
     try {
-      await xcn.getOnyxAccrued('bad_ethereum_address', providerUrl);
+      await xcn.getXcnAccrued('bad_ethereum_address', providerUrl);
     } catch (e) {
       assert.equal(e.message, errorMessage);
     }
   });
 
 
-  it('runs xcn.claimOnyx', async function () {
+  it('runs xcn.claimXcn', async function () {
     let txReceipt;
 
     const onyx = new Onyx(providerUrl, {
@@ -85,10 +86,10 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
     });
 
     try {
-      const claimOnyxTx = await onyx.claimOnyx({
+      const claimXcnTx = await onyx.claimXcn({
         gasLimit: ethers.utils.parseUnits('5000000', 'wei') // set when prices were unusually high
       });
-      txReceipt = await claimOnyxTx.wait(1);
+      txReceipt = await claimXcnTx.wait(1);
     } catch (error) {
       console.error('error', error);
       console.error('txReceipt', txReceipt);
@@ -100,8 +101,8 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
     const events = txReceipt.events.map(e => e.event);
 
     assert.equal(status, expectedStatus);
-    assert.equal(events.includes('DistributedSupplierOnyx'), true, 'Missing event: DistributedSupplierOnyx');
-    assert.equal(events.includes('DistributedBorrowerOnyx'), true, 'Missing event: DistributedBorrowerOnyx');
+    assert.equal(events.includes('DistributedSupplierXcn'), true, 'Missing event: DistributedSupplierXcn');
+    assert.equal(events.includes('DistributedBorrowerXcn'), true, 'Missing event: DistributedBorrowerXcn');
 
   });
 
@@ -162,9 +163,9 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
     );
 
     const expectedSignature = {
-      r: '0x6cd69dff627c9bbaba58fed259f4f1a20f8fd336b7e652c39585faaf9b7ceeb5',
-      s: '0x6e77e4bf4b30af12fc834f0becfde55ac733ce3034182cf7350cef5efa20d8e9',
-      v: '0x1c'
+      r: '0x2e9bba5ad72768537ba0efb7b5e29af733175d41dc9a612414d10bbc1404a0aa',
+      s: '0x7071ae8e5268d654bc3df952330d67d3dce815e3511ce6f6351608c3769567b9',
+      v: '0x1b'
     }
 
     assert.equal(delegateSignature.r, expectedSignature.r);
@@ -177,7 +178,7 @@ module.exports = function suite([ publicKeys, privateKeys ]) {
       privateKey: acc1.privateKey
     });
 
-    const xcnAddress = Onyx.util.getAddress(Onyx.XCN);
+    const xcnAddress = Onyx.util.getAddress(Onyx.XCN, networkName);
     const nonce = +(await getNonce(acc1.address, xcnAddress, providerUrl)).toString();
     const expiry = 10e9;
     const signature = await onyx.createDelegateSignature(

@@ -68,5 +68,8 @@
   },
   "peerDependencies": {
     "ethers": "5.x"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
   }
 }

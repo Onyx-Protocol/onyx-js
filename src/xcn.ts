@@ -64,19 +64,19 @@ function toChecksumAddress(_address) {
  *
  * ```
  * (async function () {
- *   const bal = await Onyx.xcn.getOnyxBalance('0x2775b1c75658Be0F640272CCb8c72ac986009e38');
+ *   const bal = await Onyx.xcn.getXcnBalance('0x2775b1c75658Be0F640272CCb8c72ac986009e38');
  *   console.log('Balance', bal);
  * })().catch(console.error);
  * ```
  */
-export async function getOnyxBalance(
+export async function getXcnBalance(
   _address: string,
   _provider : Provider | string='mainnet'
 ) : Promise<string> {
   const provider = await eth._createProvider({ provider: _provider });
   const net = await eth.getProviderNetwork(provider);
 
-  const errorPrefix = 'Onyx [getOnyxBalance] | ';
+  const errorPrefix = 'Onyx [getXcnBalance] | ';
 
   if (typeof _address !== 'string') {
     throw Error(errorPrefix + 'Argument `_address` must be a string.');
@@ -113,19 +113,19 @@ export async function getOnyxBalance(
  *
  * ```
  * (async function () {
- *   const acc = await Onyx.xcn.getOnyxAccrued('0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5');
+ *   const acc = await Onyx.xcn.getXcnAccrued('0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5');
  *   console.log('Accrued', acc);
  * })().catch(console.error);
  * ```
  */
-export async function getOnyxAccrued(
+export async function getXcnAccrued(
   _address: string,
   _provider : Provider | string='mainnet'
 ) : Promise<string> {
   const provider = await eth._createProvider({ provider: _provider });
   const net = await eth.getProviderNetwork(provider);
 
-  const errorPrefix = 'Onyx [getOnyxAccrued] | ';
+  const errorPrefix = 'Onyx [getXcnAccrued] | ';
 
   if (typeof _address !== 'string') {
     throw Error(errorPrefix + 'Argument `_address` must be a string.');
@@ -146,7 +146,7 @@ export async function getOnyxAccrued(
     abi: abi.OnyxLens,
   };
 
-  const result = await eth.read(lensAddress, 'getOnyxBalanceMetadataExt', parameters, trxOptions);
+  const result = await eth.read(lensAddress, 'getXcnBalanceMetadataExt', parameters, trxOptions);
   return result.allocated.toString();
 }
 
@@ -167,13 +167,13 @@ export async function getOnyxAccrued(
  * (async function() {
  * 
  *   console.log('Claiming XCN...');
- *   const trx = await onyx.claimOnyx();
+ *   const trx = await onyx.claimXcn();
  *   console.log('Ethers.js transaction object', trx);
  * 
  * })().catch(console.error);
  * ```
  */
-export async function claimOnyx(
+export async function claimXcn(
   options: CallOptions = {}
 ) : Promise<TrxResponse> {
   await netId(this);
@@ -192,11 +192,11 @@ export async function claimOnyx(
       abi: abi.Comptroller,
     };
     const parameters = [ userAddress ];
-    const method = 'claimOnyx(address)';
+    const method = 'claimXcn(address)';
 
     return eth.trx(comptrollerAddress, method, parameters, trxOptions);
   } catch(e) {
-    const errorPrefix = 'Onyx [claimOnyx] | ';
+    const errorPrefix = 'Onyx [claimXcn] | ';
     e.message = errorPrefix + e.message;
     return e;
   }
@@ -397,7 +397,7 @@ export async function createDelegateSignature(
   )).toString();
 
   const domain: EIP712Domain = {
-    name: 'Onyx',
+    name: 'Chain',
     chainId,
     verifyingContract: xcnAddress
   };
