@@ -1,6 +1,6 @@
 {
   "name": "@onyx-finance/onyx-js",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": "Onyx Labs, Inc.",
   "description": "A JavaScript SDK for Ethereum and the Onyx Protocol.",
   "license": "BSD-3-Clause",
